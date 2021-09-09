@@ -29,6 +29,7 @@ STATE_PRESS_LEFT = "Left Dragged"
 STATE_CLICK_LEFT = "Left Clicked"
 STATE_PRESS_RIGHT = "Right Pressed"
 STATE_CLICK_RIGHT = "Right Clicked"
+STATE_PRESS_SPACE = "Space Pressed"
 MOUSE_STATE = "Pointer"
 
 while cap.isOpened():
@@ -46,7 +47,16 @@ while cap.isOpened():
         F_LITTLE_X, F_LITTLE_Y = lmList[20][1:]
 
         fingers = detector.fingersUp()
-        if fingers[1] == 1 or fingers[2]==1:
+        if fingers[0] == 1 and fingers[1] == 1 and fingers[2] == 0 and fingers[3] == 0 and fingers[4] == 0:
+            le, img, lineInfo = detector.findDistance(4, 8, img)
+            if le < 30:
+                MOUSE_STATE=STATE_PRESS_SPACE
+                cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
+                keyboard.press(hotkey='space')
+            else:
+                MOUSE_STATE = STATE_POINTER
+                keyboard.release(hotkey='space')
+        elif fingers[1] == 1 or fingers[2]==1:
             cv2.rectangle(img, (frameR, frameR-70), (wCam - frameR, hCam - frameR-70), (255, 0, 255), 2)
             x3 = np.interp(x1, (frameR, wCam - frameR), (0, wScr))
             y3 = np.interp(y1, (frameR, hCam - frameR-70), (0, hScr))
@@ -66,11 +76,6 @@ while cap.isOpened():
                     autopy.mouse.click(autopy.mouse.Button.LEFT)
 
                 MOUSE_STATE = STATE_CLICK_LEFT
-            elif length > 50:
-                cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
-                if MOUSE_STATE != STATE_PRESS_LEFT:
-                    autopy.mouse.toggle(autopy.mouse.Button.LEFT,down = True)
-                MOUSE_STATE = STATE_PRESS_LEFT
             elif fingers[4]==0:
                 autopy.mouse.toggle(autopy.mouse.Button.LEFT, down=False)
                 cv2.circle(img, (F_LITTLE_X, F_LITTLE_Y), 15, (255, 0, 255), cv2.FILLED)
@@ -78,6 +83,11 @@ while cap.isOpened():
                     cv2.circle(img, (F_LITTLE_X, F_LITTLE_Y), 15, (0, 255, 0), cv2.FILLED)
                     autopy.mouse.click(autopy.mouse.Button.RIGHT)
                 MOUSE_STATE = STATE_CLICK_RIGHT
+            elif length > 50:
+                cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
+                if MOUSE_STATE != STATE_PRESS_LEFT:
+                    autopy.mouse.toggle(autopy.mouse.Button.LEFT,down = True)
+                MOUSE_STATE = STATE_PRESS_LEFT
             else:
                 MOUSE_STATE = STATE_POINTER
                 autopy.mouse.toggle(autopy.mouse.Button.LEFT, down=False)
