@@ -1,9 +1,10 @@
-absl-py==0.12.0
+absl-py==0.13.0
 attrs==21.2.0
-mediapipe==0.8.5
-autopy==0.7.1
-numpy==1.20.3
-opencv-contrib-python==4.5.2.54
-opencv-python==4.5.2.54
+mediapipe==0.8.6.2
+autopy==4.0.0
+numpy==1.21.1
+opencv-contrib-python==4.5.3.56
+opencv-python==4.5.3.56
+keyboard==0.13.5
 protobuf==3.17.3
 six==1.16.0

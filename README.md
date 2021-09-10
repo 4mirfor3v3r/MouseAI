@@ -1,12 +1,12 @@
 # MouseAI
 Future Mouse Controller with Hand
 
-### Preview
+## Preview
 <p align="center">
   <img src="https://drive.google.com/uc?export=view&id=1LBasydxIj6C3YOo-BYKXunWXq1TuRxWl" />
 </p>
 
-### Controller
+## Controller
 - ForeFinger == Pointer Mouse
 - Thumb == Left Click
 - Little Finger == Right Click
@@ -27,10 +27,8 @@ Future Mouse Controller with Hand
 
 ## How to install
 1. Install python (you can refer to [Python site](https://www.python.org/downloads/))
-2. (Optional) Initiate venv by running <code>python -m venv ac_env</code>
-2. Install library via pip from requirements.txt by running <code>python -m pip install requirements.txt</code>
-3. Adjust the settings located at the <code>./settings/</code> folder (the <code>IS_CLICK_HAND_ON</code> and <code>IS_POINTER_HAND_ON
-</code> value, you need to set the value to <code>True</code> to move your mouse, or keep it to <code>False</code> if you want to check for <em>ghost click</em> first)
+2. (Optional) Initiate venv by running <code>python -m venv mouse_env</code>
+2. Install library via pip from requirements.txt by running <code>python -m pip install -r requirements.txt</code>
 4. Run with <code>python main.py</code>
 
 ### Notes for installation
